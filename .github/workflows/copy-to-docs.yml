@@ -21,7 +21,7 @@ jobs:
       with:
         personal_token: ${{ secrets.PERSONAL_TOKEN }}
         src_path: /.
-        file_filter: *.md
+        file_filter: "*.md"
         dst_path: /docs/${{ env.GITHUB_REPOSITORY }}
         dst_owner: nandajavarma
         dst_repo_name: doc-site-poc
