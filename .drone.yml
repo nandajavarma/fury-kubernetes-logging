@@ -73,46 +73,7 @@ steps:
     environment:
       KUBERNETES_MANIFESTS: kibana.yml
 
----
-kind: pipeline
-name: doc-push
 
-platform:
-  os: linux
-  arch: amd64
-
-steps:
-  - name: publish-doc
-    image: appleboy/drone-git-push
-    pull: always
-    environment:
-      ssh_key:
-        from_secret: SSH_KEY
-    commands:
-      - mkdir -p /root/.ssh
-      - echo $${ssh_key} > /root/.ssh/id_rsa
-      - chmod 400 ~/.ssh/id_rsa
-      - git clone git@github.com:sighupio/kfd-docs.git
-      - ls
-      - cd kfd-docs
-      - ls
-    # settings:
-    #   ssh_key:
-    #     from_secret: SSH_KEY
-    #   key:
-    #     from_secret: SSH_KEY
-    #     GIT_PUSH_SSH_KEY
-    #   branch: docusourus
-    #   remote:
-    #   empty_commit: true
-    #   commit_message: "feat: Drone commit from modules"
-trigger:
-  branch:
-    - doc_build
-  event:
-    - push
-
----
 kind: pipeline
 name: unit-test
 

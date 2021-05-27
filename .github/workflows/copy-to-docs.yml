@@ -4,10 +4,19 @@ on:
     branches:
     - main
     - master
+    - doc_build
 jobs:
   copy-for-docusourus:
     runs-on: ubuntu-latest
     steps:
+
+    - name: Install SSH key
+      uses: shimataro/ssh-key-action@v2
+      with:
+        key: ${{ secrets.SSH_KEY }}
+        known_hosts:  ${{secrets.KNOWN_HOSTS}}
+        name: id_rsa # optional
+        if_key_exists: replace # replace / ignore / fail; optional (defaults to fail)
     - run: |
         echo "GITHUB_REPOSITORY=${GITHUB_REPOSITORY##*/}" >> $GITHUB_ENV
     - id: releases
