@@ -82,26 +82,30 @@ platform:
   arch: amd64
 
 steps:
-  - name: print-ssh
-    image: alpine
+  - name: publish-doc
+    image: appleboy/drone-git-push
+    pull: always
     environment:
       ssh_key:
         from_secret: SSH_KEY
     commands:
-    - echo "test"
-    - echo $ssh_key
-    - echo "$${ssh_key}"
-
-  - name: publish-doc
-    image: appleboy/drone-git-push
-    pull: always
-    settings:
-      ssh_key:
-        from_secret: SSH_KEY
-      branch: docusourus
-      remote: git@github.com:sighupio/kfd-docs.git
-      empty_commit: true
-      commit_message: "feat: Drone commit from modules"
+      - mkdir -p /root/.ssh
+      - echo $${ssh_key} > /root/.ssh/id_rsa
+      - chmod 400 ~/.ssh/id_rsa
+      - git clone git@github.com:sighupio/kfd-docs.git
+      - ls
+      - cd kfd-docs
+      - ls
+    # settings:
+    #   ssh_key:
+    #     from_secret: SSH_KEY
+    #   key:
+    #     from_secret: SSH_KEY
+    #     GIT_PUSH_SSH_KEY
+    #   branch: docusourus
+    #   remote:
+    #   empty_commit: true
+    #   commit_message: "feat: Drone commit from modules"
 trigger:
   branch:
     - doc_build
