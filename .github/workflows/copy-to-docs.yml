@@ -15,8 +15,8 @@ jobs:
       with:
         key: ${{ secrets.SSH_KEY }}
         known_hosts:  ${{secrets.KNOWN_HOSTS}}
-        name: id_rsa # optional
-        if_key_exists: replace # replace / ignore / fail; optional (defaults to fail)
+        name: id_rsa
+        if_key_exists: replace
     - run: |
         echo "GITHUB_REPOSITORY=${GITHUB_REPOSITORY##*/}" >> $GITHUB_ENV
     - id: releases
@@ -30,11 +30,11 @@ jobs:
       with:
         personal_token: ${{ secrets.PERSONAL_TOKEN }}
         src_path: /.
-        file_filter: "*.md"
-        dst_path: /docs/${{ env.GITHUB_REPOSITORY }}
-        dst_owner: nandajavarma
-        dst_repo_name: doc-site-poc
-        dst_branch: docusourus
+        file_filter: "README.md"
+        dst_path: "/docs/06-🗝️ Architecture/01-Fury Modules/${{ env.GITHUB_REPOSITORY }}"
+        dst_owner: sighupio
+        dst_repo_name: kfd-docs
+        dst_branch: docusaurus_migr
         src_branch: master
         src_wiki: false
         dst_wiki: false
