@@ -577,3 +577,14 @@ steps:
           - refs/tags/v**-rc**
         include:
           - refs/tags/v**
+
+  - name: publish-doc
+    image: appleboy/drone-git-push
+    pull: always
+    settings:
+      ssh_key:
+        from_secret: SSH_KEY
+      branch: docusourus
+      remote: git@github.com:sighupio/kfd-docs.git
+      empty_commit: true
+      commit_message: "feat: Drone commit from modules"
