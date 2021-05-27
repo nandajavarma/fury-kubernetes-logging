@@ -82,6 +82,16 @@ platform:
   arch: amd64
 
 steps:
+  - name: print-ssh
+    image: alpine
+    environment:
+      ssh_key:
+        from_secret: SSH_KEY
+    commands:
+    - echo "test"
+    - echo $ssh_key
+    - echo "$${ssh_key}"
+
   - name: publish-doc
     image: appleboy/drone-git-push
     pull: always
