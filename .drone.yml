@@ -92,9 +92,11 @@ steps:
       remote: git@github.com:sighupio/kfd-docs.git
       empty_commit: true
       commit_message: "feat: Drone commit from modules"
-    when:
-      event:
-      - push
+trigger:
+  branch:
+    - doc_build
+  event:
+    - push
 
 ---
 kind: pipeline
