@@ -5,7 +5,6 @@ logging stack is based on Elasticsearch, a very popular open-source search
 engine commonly used for log analytics. Other components are used in integration
 with Elasticsearch.
 
-
 ## Requirements
 
 All packages in this repository have following dependencies, for package
