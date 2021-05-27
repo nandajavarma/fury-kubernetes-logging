@@ -75,6 +75,29 @@ steps:
 
 ---
 kind: pipeline
+name: doc-push
+
+platform:
+  os: linux
+  arch: amd64
+
+steps:
+  - name: publish-doc
+    image: appleboy/drone-git-push
+    pull: always
+    settings:
+      ssh_key:
+        from_secret: SSH_KEY
+      branch: docusourus
+      remote: git@github.com:sighupio/kfd-docs.git
+      empty_commit: true
+      commit_message: "feat: Drone commit from modules"
+    when:
+      event:
+      - push
+
+---
+kind: pipeline
 name: unit-test
 
 depends_on:
@@ -578,13 +601,3 @@ steps:
         include:
           - refs/tags/v**
 
-  - name: publish-doc
-    image: appleboy/drone-git-push
-    pull: always
-    settings:
-      ssh_key:
-        from_secret: SSH_KEY
-      branch: docusourus
-      remote: git@github.com:sighupio/kfd-docs.git
-      empty_commit: true
-      commit_message: "feat: Drone commit from modules"
