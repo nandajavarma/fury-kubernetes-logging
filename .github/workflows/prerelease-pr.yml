@@ -2,7 +2,7 @@ name: Pre-release PR
 on:
   push:
     branches:
-    - release-*
+    - release-v1.6.7
 jobs:
   create-pull-request:
     runs-on: ubuntu-latest
